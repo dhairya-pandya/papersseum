@@ -24,11 +24,11 @@
 .drawerUpload:empty { display: none; }
 .drawerLinks { display: flex; flex-direction: column; gap: 4px; font-size: 18px; }
 .drawerLinks a { padding: 10px 4px; color: var(--muted); }
-.drawerLinks a[aria-current="page"] { color: var(--text); }
+.drawerLinks a[aria-current="page"] { color: var(--text); font-weight: 500; }
 
 @media (max-width: 640px) {
   .links, .account, .upload { display: none; }
-  .menu { display: inline-block; }
+  .menu { display: inline-block; min-height: 40px; padding-inline: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .bar, .link { transition: none; }
