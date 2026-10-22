@@ -21,12 +21,27 @@
 }
 .mark[data-past] { opacity: 1; }
 .mark[data-kind="lead"] { color: var(--text); }
-.mark:hover { opacity: 1; transform: translateX(-50%) scale(1.5); }
+@media (hover: hover) and (pointer: fine) {
+  .mark:hover { opacity: 1; transform: translateX(-50%) scale(1.5); }
+}
+/* Touch: marks are 10px glyphs a few px apart, too small to aim at. They stay as a map of the
+   match and taps fall through to the scrubber; the Key moments list below is the touch path. */
+@media (pointer: coarse) {
+  .marks, .mark { pointer-events: none; }
+  .moments summary { padding-block: 12px; }
+  .moments button { padding-block: 10px; }
+}
+/* Phone: the scrubber takes its own full row above Play, the clock and the speeds. */
+@media (max-width: 640px) {
+  .track { flex-basis: 100%; order: -1; }
+}
 
 /* The same moments as a list, behind a disclosure. */
 .moments { margin-top: var(--space-3); font-size: 13px; }
 .moments summary { cursor: pointer; color: var(--muted); width: max-content; }
-.moments summary:hover { color: var(--text); }
+@media (hover: hover) and (pointer: fine) {
+  .moments summary:hover { color: var(--text); }
+}
 .moments ol { list-style: none; margin: var(--space-3) 0 0; padding: 0; max-height: 220px; overflow: auto; border-top: 1px solid var(--rule); }
 .moments li { border-bottom: 1px solid var(--rule-soft); }
 .moments li:not([data-past]) { color: var(--muted); }

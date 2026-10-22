@@ -38,7 +38,7 @@ async function VersionsContent() {
 
   return (
     <div className="table-scroll">
-      <table className="table">
+      <table className={`table ${styles.versions}`}>
         <thead>
           <tr>
             <th>Version</th>

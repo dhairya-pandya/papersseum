@@ -29,10 +29,13 @@ function Row({ r, mine, compact }: { r: LeaderRow; mine: string | null; compact:
           {r.botId === mine && <span className={styles.you}>you</span>}
         </span>
       </td>
-      {!compact && <td className="muted">{r.isHouse ? "-" : r.owner}</td>}
+      {!compact && <td className="muted hide-phone">{r.isHouse ? "-" : r.owner}</td>}
       <td className="num">
         {r.games === 0 ? (
-          <span className={styles.unrated}>Not rated yet</span>
+          <span className={styles.unrated}>
+            <span className={styles.unratedLong}>Not rated yet</span>
+            <span className={styles.unratedShort}>Unrated</span>
+          </span>
         ) : (
           <>
             <b>{elo(r.rating)}</b>
@@ -44,10 +47,10 @@ function Row({ r, mine, compact }: { r: LeaderRow; mine: string | null; compact:
           </>
         )}
       </td>
-      {!compact && <td className="num">{r.games === 0 ? <span className="muted">-</span> : elo(r.elo)}</td>}
-      {!compact && <td className="num muted">{r.games === 0 ? "-" : elo(r.sigma)}</td>}
+      {!compact && <td className="num hide-phone">{r.games === 0 ? <span className="muted">-</span> : elo(r.elo)}</td>}
+      {!compact && <td className="num muted hide-phone">{r.games === 0 ? "-" : elo(r.sigma)}</td>}
       <td className="num">{r.games}</td>
-      {!compact && <td className="num muted">{r.version ? `v${r.version}` : "none"}</td>}
+      {!compact && <td className="num muted hide-phone">{r.version ? `v${r.version}` : "none"}</td>}
     </tr>
   );
 }
@@ -86,12 +89,12 @@ export async function LeaderboardTable({
             <tr>
               <th style={{ width: 40 }}>#</th>
               <th>Bot</th>
-              {!compact && <th>Owner</th>}
+              {!compact && <th className="hide-phone">Owner</th>}
               <th className="num">Rating</th>
-              {!compact && <th className="num">Elo</th>}
-              {!compact && <th className="num">±</th>}
+              {!compact && <th className="num hide-phone">Elo</th>}
+              {!compact && <th className="num hide-phone">±</th>}
               <th className="num">Games</th>
-              {!compact && <th className="num">Version</th>}
+              {!compact && <th className="num hide-phone">Version</th>}
             </tr>
           </thead>
           <tbody>

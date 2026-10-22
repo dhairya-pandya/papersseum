@@ -56,8 +56,8 @@ function Results({ match }: { match: MatchDetail }) {
             <th style={{ width: 52 }}>Place</th>
             <th>Bot</th>
             <th className="num">Coverage</th>
-            <th className="num">Deaths</th>
-            <th className="num">Strikes</th>
+            <th className="num hide-phone">Deaths</th>
+            <th className="num hide-phone">Strikes</th>
             <th>Status</th>
             <th className="num">Elo</th>
           </tr>
@@ -68,8 +68,8 @@ function Results({ match }: { match: MatchDetail }) {
               <td>{s.placement ?? "n/a"}</td>
               <td className="seat"><BotName seat={s} /></td>
               <td className="num">{percent(s.coverage)}</td>
-              <td className="num">{s.deaths ?? "n/a"}</td>
-              <td className="num">{s.strikes ?? "n/a"}</td>
+              <td className="num hide-phone">{s.deaths ?? "n/a"}</td>
+              <td className="num hide-phone">{s.strikes ?? "n/a"}</td>
               <td className={s.crashed ? undefined : "muted"}>{s.crashed ? "crashed" : "finished"}</td>
               <td className="num"><EloCell seat={s} /></td>
             </tr>

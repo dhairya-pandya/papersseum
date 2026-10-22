@@ -1,9 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import styles from "./paused-banner.module.css";
 
 export const STATUS_POLL_MS = 30_000;
+// Hiding the notice holds for the tab, so a phone doesn't give it ~70px again on every page load.
+const DISMISS_KEY = "papersseum:paused-banner-hidden";
+const subscribeNothing = () => () => {};
+const readDismissed = () => sessionStorage.getItem(DISMISS_KEY) === "1";
 
 type StatusBody = { worker?: string } | null;
 
@@ -17,6 +21,7 @@ export function bannerFor(status: StatusBody): string | null {
 export function PausedBanner() {
   const [status, setStatus] = useState<StatusBody>(null);
   const [dismissed, setDismissed] = useState(false);
+  const dismissedEarlier = useSyncExternalStore(subscribeNothing, readDismissed, () => false);
 
   useEffect(() => {
     let alive = true;
@@ -40,13 +45,16 @@ export function PausedBanner() {
   }, []);
 
   const text = bannerFor(status);
-  if (!text || dismissed) return null;
+  if (!text || dismissed || dismissedEarlier) return null;
   return (
     <div className={styles.banner} role="status">
       <div className="wrap">
         <span className={styles.dot} aria-hidden />
         {text} <a href="/status">Status</a>
-        <button type="button" className={styles.close} onClick={() => setDismissed(true)} aria-label="Hide this notice">
+        <button type="button" className={styles.close} onClick={() => {
+            sessionStorage.setItem(DISMISS_KEY, "1");
+            setDismissed(true);
+          }} aria-label="Hide this notice">
           ×
         </button>
       </div>
