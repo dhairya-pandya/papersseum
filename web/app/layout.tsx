@@ -23,6 +23,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
+  // Draw under the notch and home indicator; .wrap and fixed layers pad by the safe-area insets.
+  viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#fafaf8" },
     { media: "(prefers-color-scheme: dark)", color: "#121212" },

@@ -55,10 +55,15 @@ export function ReplayDrop() {
             e.target.value = "";
           }}
         />
-        Drop a replay file here, or <span className="link-button">choose one</span>.
+        <span className="on-pointer">
+          Drop a replay file here, or <span className="link-button">choose one</span>.
+        </span>
+        <span className="on-touch">
+          <span className="link-button">Choose a replay file</span>
+        </span>
         <br />
         <span className="muted small">
-          A <code>.jsonl</code> or <code>.jsonl.gz</code> file. It stays on your computer.
+          A <code>.jsonl</code> or <code>.jsonl.gz</code> file. It stays on your device.
         </span>
       </label>
       {problem && (

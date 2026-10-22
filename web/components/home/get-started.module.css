@@ -70,6 +70,11 @@
 }
 .line:hover .copy, .copy:focus-visible { opacity: 1; }
 .copy:hover { background: #262626; color: #ffffff; }
+/* Touch: no hover to reveal Copy, and a fingertip needs more than a 24px chip. */
+@media (pointer: coarse) {
+  .copy { opacity: 1; padding: 9px 12px; }
+  .replay { padding: 8px 12px; }
+}
 .copy[data-copied] { opacity: 1; color: var(--slot-2); border-color: color-mix(in oklch, var(--slot-2) 40%, #2e2e2e); }
 
 /* Armed: everything waits, empty. Playing: lines appear on their schedule (--d), each

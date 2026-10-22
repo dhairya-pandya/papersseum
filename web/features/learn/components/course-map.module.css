@@ -37,7 +37,14 @@
 .trackPartId { font-family: var(--font-pixel); font-size: 12px; color: var(--muted); width: 10px; }
 .trackSquares { display: flex; gap: 3px; }
 .square { display: block; width: 14px; height: 14px; border: 1px solid var(--rule); background: var(--bg); transition: background-color var(--dur-fast) var(--ease-smooth), border-color var(--dur-fast) var(--ease-smooth); }
-.square:hover { border-color: var(--text); }
+@media (hover: hover) and (pointer: fine) {
+  .square:hover { border-color: var(--text); }
+}
+/* Touch: each square is a link, so they sit 24px apart centre to centre (WCAG 2.5.8 spacing). */
+@media (pointer: coarse) {
+  .trackSquares { gap: 6px; }
+  .square { width: 18px; height: 18px; }
+}
 .square[data-opened] { background: var(--text); border-color: var(--text); }
 .trackNext { color: var(--text); white-space: nowrap; }
 .trackHint { color: var(--muted); white-space: nowrap; }

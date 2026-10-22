@@ -12,6 +12,8 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
+  min-height: 100dvh;
+  -webkit-tap-highlight-color: transparent;
   display: flex;
   flex-direction: column;
 }
@@ -20,8 +22,8 @@ body {
    page scrolled sideways by its width. clip, not hidden: no new scroll container, sticky works. */
 html { overflow-x: clip; }
 
-.wrap { width: 100%; max-width: 960px; margin: 0 auto; padding: 0 16px; }
-@media (min-width: 640px) { .wrap { padding: 0 28px; } }
+.wrap { width: 100%; max-width: 960px; margin: 0 auto; padding: 0 max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); }
+@media (min-width: 640px) { .wrap { padding: 0 max(28px, env(safe-area-inset-right)) 0 max(28px, env(safe-area-inset-left)); } }
 main.wrap { flex: 1; padding-top: 36px; padding-bottom: 56px; }
 
 h1 { font-size: 26px; font-weight: 400; letter-spacing: -0.02em; line-height: 1.2; }
@@ -63,12 +65,24 @@ main a.btn, main a.btn-secondary { text-decoration: none; }
 .notice { border: 1px solid var(--rule); padding: 14px 16px; background: var(--surface); overflow-wrap: anywhere; }
 
 /* tables */
-.table-scroll { overflow-x: auto; }
+/* A table wider than the page scrolls in its own box. Shadows on whichever edge has more
+   to show are the cue: covers move with the content, shadows stay with the box. */
+.table-scroll {
+  overflow-x: auto; overscroll-behavior-x: contain;
+  background:
+    linear-gradient(to right, var(--scroll-ground, var(--bg)) 30%, transparent) left / 32px 100% no-repeat local,
+    linear-gradient(to left, var(--scroll-ground, var(--bg)) 30%, transparent) right / 32px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, color-mix(in srgb, var(--text) 16%, transparent), transparent) left / 12px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, color-mix(in srgb, var(--text) 16%, transparent), transparent) right / 12px 100% no-repeat scroll;
+}
 .table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .table th { font-weight: 400; color: var(--muted); font-size: 13px; text-align: left; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--rule); white-space: nowrap; }
 .table td { padding: 8px 12px 8px 0; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
 .table th.num, .table td.num { text-align: right; }
 .table th:last-child, .table td:last-child { padding-right: 0; }
+/* Columns a phone can do without: the row keeps what identifies and ranks it, and the rest is
+   one tap away on the detail page. */
+@media (max-width: 640px) { .table .hide-phone { display: none; } }
 .list-plain { list-style: none; padding: 0; margin: 4px 0 0; }
 
 /* seats and swatches */
@@ -116,6 +130,19 @@ input[type="file"] { font: inherit; font-size: 14px; max-width: 100%; }
 .replay-scrub { flex: 1 1 160px; min-width: 120px; accent-color: var(--text); }
 .replay-speeds { display: inline-flex; gap: 10px; font-size: 14px; }
 .replay-speeds [aria-pressed="true"] { font-weight: 500; text-decoration: none; }
+.replay-speeds .link-button { min-height: 32px; padding-inline: 4px; }
+@media (pointer: coarse) {
+  .replay-speeds { gap: 4px; }
+  .replay-speeds .link-button { min-height: 44px; min-width: 44px; }
+  .replay-scrub { height: 32px; touch-action: pan-y; }
+}
+
+/* Copy that differs by input: "drop a file" means nothing on a phone. */
+.on-touch { display: none; }
+@media (pointer: coarse) {
+  .on-touch { display: inline; }
+  .on-pointer { display: none; }
+}
 .replay-legend { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 10px; font-size: 14px; }
 .replay-legend .seat + .seat::before { content: none; }
 .replay-status { margin-top: 8px; overflow-wrap: anywhere; }

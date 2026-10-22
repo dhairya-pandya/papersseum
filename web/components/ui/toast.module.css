@@ -1,7 +1,7 @@
 .region {
   position: fixed;
-  right: var(--space-5);
-  bottom: var(--space-5);
+  right: calc(var(--space-5) + env(safe-area-inset-right));
+  bottom: calc(var(--space-5) + env(safe-area-inset-bottom));
   z-index: var(--z-popover);
   width: min(360px, calc(100vw - var(--space-5) * 2));
   pointer-events: none;

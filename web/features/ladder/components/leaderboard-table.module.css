@@ -22,7 +22,7 @@
 .house {
   flex: none;
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 11px;
   padding: 0 5px;
   border: 1px solid var(--rule);
   color: var(--muted);
@@ -47,14 +47,22 @@
   border: 1px solid var(--rule);
   white-space: nowrap;
 }
+.unratedShort { display: none; }
 .provisional {
   margin-left: 6px;
   font-family: var(--font-pixel);
-  font-size: 10px;
+  font-size: 11px;
   padding: 0 4px;
   border: 1px solid var(--rule);
   color: var(--muted);
   text-decoration: none;
   cursor: help;
   vertical-align: 1px;
+}
+
+/* Phone: four columns share ~343px, so names truncate sooner and the unrated chip says less. */
+@media (max-width: 640px) {
+  .bot :global(.bot-tag) span { max-width: clamp(8ch, 24vw, 24ch); }
+  .unratedLong { display: none; }
+  .unratedShort { display: inline; }
 }

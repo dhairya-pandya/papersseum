@@ -49,6 +49,14 @@ export function Drawer({ open, onClose, title, side = "right", children }: Drawe
       inerted.push(el);
     }
 
+    // Lock the page behind the panel. Padding stands in for a classic scrollbar so nothing shifts.
+    const html = document.documentElement;
+    const gutter = window.innerWidth - html.clientWidth;
+    const prevOverflow = html.style.overflow;
+    const prevPadding = html.style.paddingRight;
+    html.style.overflow = "hidden";
+    if (gutter > 0) html.style.paddingRight = `${gutter}px`;
+
     const panel = panelRef.current;
     const first = panel?.querySelector<HTMLElement>(FOCUSABLE);
     (first ?? panel)?.focus();
@@ -64,6 +72,8 @@ export function Drawer({ open, onClose, title, side = "right", children }: Drawe
     return () => {
       document.removeEventListener("keydown", onKey);
       inerted.forEach((el) => el.removeAttribute("inert"));
+      html.style.overflow = prevOverflow;
+      html.style.paddingRight = prevPadding;
       if (opener?.isConnected) opener.focus();
     };
   }, [open, isClient]);
@@ -78,7 +88,7 @@ export function Drawer({ open, onClose, title, side = "right", children }: Drawe
   const state = open ? "open" : "closed";
 
   return createPortal(
-    <div ref={rootRef} className={styles.root} inert={!open}>
+    <div ref={rootRef} className={styles.root} inert={!open} data-drawer-root="">
       <div className={styles.backdrop} data-state={state} data-drawer-backdrop="" onClick={() => onClose()} />
       <div
         ref={panelRef}

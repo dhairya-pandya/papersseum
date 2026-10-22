@@ -38,6 +38,8 @@
     transform var(--dur-fast) var(--ease-smooth);
 }
 .sm { --btn-h: 28px; padding: 0 var(--space-3); font-size: var(--text-xs); }
+/* Small keeps its type on touch but not its 28px height. */
+@media (pointer: coarse) { .sm { --btn-h: 40px; } }
 
 /* The fill. Rises from the bottom edge on enter and leaves through the top on exit:
    transform-origin flips instantly while the scale eases, so the layer always travels

@@ -19,7 +19,9 @@
   font: inherit; font-size: 14px; padding: 6px 12px; border: 1px solid var(--rule); background: var(--bg); color: var(--text);
   cursor: pointer; transition: background-color var(--dur-fast) var(--ease-swing), border-color var(--dur-fast) var(--ease-swing);
 }
-.option:hover, .arrow:hover { background: var(--rule-soft); }
+@media (hover: hover) and (pointer: fine) {
+  .option:hover, .arrow:hover { background: var(--rule-soft); }
+}
 .option[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
 .option[data-swatch] { padding: 6px; }
 .swatch { display: block; width: 18px; height: 18px; background: var(--chip); }
@@ -33,3 +35,9 @@
   .stage { position: static; }
 }
 @media (prefers-reduced-motion: reduce) { .pop { animation: none; } }
+/* Touch: chips, swatches and the cycle arrows are fingertip targets. */
+@media (pointer: coarse) {
+  .option, .arrow { min-height: 44px; }
+  .arrow { min-width: 44px; }
+  .option[data-swatch] { min-width: 44px; padding: 12px; }
+}

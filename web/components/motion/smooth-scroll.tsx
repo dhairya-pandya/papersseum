@@ -13,7 +13,8 @@ export function SmoothScroll() {
   const reduced = useReducedMotion();
   useEffect(() => {
     if (reduced) return;
-    const lenis = new Lenis({ autoRaf: false });
+    // An open drawer locks the page; wheel and touch over its backdrop must not reach Lenis.
+    const lenis = new Lenis({ autoRaf: false, prevent: (node) => node.closest('[data-drawer-root]') !== null });
     lenis.on('scroll', ScrollTrigger.update);
     const tick = (t: number) => lenis.raf(t * 1000);
     gsap.ticker.add(tick);

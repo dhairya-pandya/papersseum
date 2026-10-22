@@ -63,6 +63,9 @@
 .lesson-body hr { border: 0; border-top: 1px solid var(--rule); margin: 36px 0; }
 .lesson-body code { font-family: var(--mono); font-size: 0.88em; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
 .lesson-body table { border-collapse: collapse; font-size: 15px; width: 100%; }
+/* Three or more columns in 343px wrap to a word per line; past a readable width the table
+   scrolls instead. Two-column tables read fine squeezed. */
+@media (max-width: 560px) { .lesson-body table:has(th:nth-child(3)) { min-width: 460px; font-size: 14px; } }
 .lesson-body th { text-align: left; font-weight: 500; border-bottom: 1px solid var(--rule); padding: 8px 14px 8px 0; }
 .lesson-body td { border-bottom: 1px solid var(--rule-soft); padding: 8px 14px 8px 0; vertical-align: top; }
 .lesson-body img { max-width: 100%; height: auto; }
@@ -103,7 +106,7 @@
 .check-answer > * + * { margin-top: 10px; }
 
 /* demos */
-.demo { border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); padding: 16px 18px; font-size: 15px; line-height: 1.5; }
+.demo { --scroll-ground: var(--surface); border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); padding: 16px 18px; font-size: 15px; line-height: 1.5; }
 .demo > * + * { margin-top: 12px; }
 .demo-title { font-weight: 500; }
 .demo-status { font-variant-numeric: tabular-nums; }

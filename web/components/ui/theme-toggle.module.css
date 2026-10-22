@@ -22,3 +22,6 @@
   .option:not([aria-pressed="true"]):hover { color: var(--text); }
 }
 .option:active { transform: scale(var(--press-scale)); }
+@media (pointer: coarse) {
+  .option { min-height: 36px; padding-inline: 12px; }
+}
