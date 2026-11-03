@@ -15,6 +15,8 @@ const nextConfig: NextConfig = {
   },
   cacheComponents: true,
   partialPrefetching: true,
+  // The season's final results are one static page in public/, reachable as /final.
+  rewrites: async () => [{ source: "/final", destination: "/final.html" }],
   turbopack: {
     rules: {
       // Not CSS Modules: `as: "*.css"` would turn them into global CSS and `styles.x` would be undefined.
