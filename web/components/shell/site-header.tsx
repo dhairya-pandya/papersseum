@@ -33,11 +33,17 @@ async function UploadLink() {
   );
 }
 
+// The slot next to the links: the season's final results for everyone, and Upload for signed-in visitors.
 function Upload() {
   return (
-    <Suspense fallback={null}>
-      <UploadLink />
-    </Suspense>
+    <>
+      <ButtonLink href="/final" variant="ghost" size="sm">
+        Final results
+      </ButtonLink>
+      <Suspense fallback={null}>
+        <UploadLink />
+      </Suspense>
+    </>
   );
 }
 
