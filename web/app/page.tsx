@@ -32,6 +32,9 @@ async function HeroActions() {
   return (
     <div className={styles.heroActions}>
       {signedIn ? <ButtonLink href="/me#upload">Upload a bot</ButtonLink> : <SignInButton next="/me" />}
+      <ButtonLink href="/final" variant="ghost">
+        Final results
+      </ButtonLink>
       <Link href="/docs/getting-started">Read the rules</Link>
     </div>
   );

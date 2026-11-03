@@ -11,6 +11,15 @@
 .step[data-place="1"] .rank { font-size: 80px; }
 .card strong { font-size: 17px; letter-spacing: -0.01em; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .rating { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+/* Medals: each place takes its medal colour on the numeral and a faint tint of it on the card. */
+.podium[data-medals] .step[data-place="1"] { --medal: var(--medal-gold); }
+.podium[data-medals] .step[data-place="2"] { --medal: var(--medal-silver); }
+.podium[data-medals] .step[data-place="3"] { --medal: var(--medal-bronze); }
+.podium[data-medals] .card { background: color-mix(in oklch, var(--medal) 8%, var(--bg)); border-color: color-mix(in oklch, var(--medal) 45%, var(--rule)); }
+.podium[data-medals] .rank { color: var(--medal); }
+@media (hover: hover) and (pointer: fine) {
+  .podium[data-medals] .card:hover { background: color-mix(in oklch, var(--medal) 15%, var(--bg)); }
+}
 @media (max-width: 640px) {
   /* Three columns share ~343px: the sprite scales with its column instead of setting its width. */
   .card { padding-inline: var(--space-2); }

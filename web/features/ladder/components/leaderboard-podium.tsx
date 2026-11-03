@@ -6,13 +6,13 @@ import { botHref } from "@/features/ladder/links";
 import type { LeaderRow } from "@/features/ladder/queries";
 import styles from "./leaderboard-podium.module.css";
 
-// Top three, second-first-third so the leader stands in the middle.
-export function LeaderboardPodium({ rows }: { rows: LeaderRow[] }) {
+// Top three, second-first-third so the leader stands in the middle. `medals` tints each place gold, silver or bronze.
+export function LeaderboardPodium({ rows, medals = false }: { rows: LeaderRow[]; medals?: boolean }) {
   const top = rows.filter((r) => r.games > 0).slice(0, 3);
   if (top.length < 3) return null;
   const order = [top[1], top[0], top[2]];
   return (
-    <ol className={styles.podium} aria-label="Top three">
+    <ol className={styles.podium} aria-label="Top three" data-medals={medals || undefined}>
       {order.map((r) => {
         const g = characterFor(r);
         const place = r === top[0] ? 1 : r === top[1] ? 2 : 3;

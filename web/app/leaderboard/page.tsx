@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { LeaderboardTable } from "@/features/ladder/components/leaderboard-table";
 import { AutoRefresh } from "@/components/auto-refresh";
+import { ButtonLink } from "@/components/ui/button";
 import { LoadBoundary } from "@/components/load-boundary";
 import { NextRound } from "@/features/ladder/components/next-round";
 import { Placeholder } from "@/components/placeholder";
@@ -31,6 +32,11 @@ export default function LeaderboardPage(props: PageProps<"/leaderboard">) {
             Ranked by rating: Elo minus twice its uncertainty, so a bot with few games can&apos;t top the table by luck. <abbr title="Provisional">P</abbr> marks a rating from under 10 games.
           </p>
           <AutoRefresh stamp />
+          <div style={{ marginTop: 12 }}>
+            <ButtonLink href="/final" size="sm">
+              Final results
+            </ButtonLink>
+          </div>
         </div>
         <span className="muted small">
           <LoadBoundary what="the season" quiet>

@@ -1,0 +1,5 @@
+.bot { display: inline-flex; align-items: center; min-width: 0; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-6); }
+.medal[data-place="1"] { color: var(--medal-gold); }
+.medal[data-place="2"] { color: var(--medal-silver); }
+.medal[data-place="3"] { color: var(--medal-bronze); }
