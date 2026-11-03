@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import { AutoRefresh } from "@/components/auto-refresh";
 import { LoadBoundary } from "@/components/load-boundary";
@@ -24,6 +25,9 @@ export default function MatchesPage(props: PageProps<"/matches">) {
           <AutoRefresh stamp />
         </div>
       </header>
+      <p className={`notice ${styles.ended}`}>
+        Season 1 has come to an end. Thank you to everyone who played. See the <Link href="/final">final results</Link>.
+      </p>
       <LoadBoundary what="matches">
         <Suspense fallback={<Placeholder lines={10} />}>
           <Page searchParams={props.searchParams} />
